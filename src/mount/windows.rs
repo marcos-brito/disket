@@ -1,29 +1,39 @@
+use crate::common::windows::Wide;
 use std::ffi::{OsStr, OsString};
+use windows::{
+    core::{Result, PCWSTR},
+    Win32::Storage::FileSystem,
+};
+
 
 pub struct MountOptions {
-    device: OsString,
+    volume_name: OsString,
     mount_point: OsString,
 }
 
 impl MountOptions {
     pub fn new() -> Self {
         Self {
-            device: OsString::new(),
+            volume_name: OsString::new(),
             mount_point: OsString::new(),
         }
     }
 
     pub fn device(&mut self, device: &OsStr) -> &mut Self {
-        self.device = device.to_os_string();
+        self.volume_name = device.to_os_string();
         self
     }
 
     pub fn mount_point(&mut self, mount_point: &OsStr) -> &mut Self {
-        self.device = mount_point.to_os_string();
+        self.volume_name = mount_point.to_os_string();
         self
     }
 }
 
-pub fn mount(options: MountOptions) {
-    todo!()
+pub fn mount(options: MountOptions) -> Result<()> {
+    let volume_name = PCWSTR::from_raw(options.volume_name.wide().as_ptr());
+    let mount_point = PCWSTR::from_raw(options.mount_point.wide().as_ptr());
+
+    unsafe { FileSystem::SetVolumeMountPointW(volume_name, mount_point) }
+}
 }
