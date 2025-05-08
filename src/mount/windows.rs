@@ -19,13 +19,13 @@ impl MountOptions {
         }
     }
 
-    pub fn device(&mut self, device: &OsStr) -> &mut Self {
-        self.volume_name = device.to_os_string();
+    pub fn device(&mut self, device: OsString) -> &mut Self {
+        self.volume_name = device;
         self
     }
 
-    pub fn mount_point(&mut self, mount_point: &OsStr) -> &mut Self {
-        self.volume_name = mount_point.to_os_string();
+    pub fn mount_point(&mut self, mount_point: OsString) -> &mut Self {
+        self.volume_name = mount_point;
         self
     }
 }

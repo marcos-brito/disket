@@ -22,12 +22,12 @@ impl MountOptions {
     }
 
     pub fn device<T: AsRef<OsStr>>(&mut self, device: T) -> &mut Self {
-        self.inner.device(device.as_ref());
+        self.inner.device(device.as_ref().to_os_string());
         self
     }
 
     pub fn mount_point<T: AsRef<OsStr>>(&mut self, mount_point: T) -> &mut Self {
-        self.inner.mount_point(mount_point.as_ref());
+        self.inner.mount_point(mount_point.as_ref().to_os_string());
         self
     }
 }
