@@ -1,10 +1,10 @@
 #[cfg(windows)]
-mod windows;
+pub(crate) mod windows;
 #[cfg(windows)]
 use windows as sys;
 
 #[cfg(unix)]
-mod unix;
+pub(crate) mod unix;
 #[cfg(unix)]
 use unix as sys;
 
