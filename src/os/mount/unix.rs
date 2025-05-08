@@ -1,9 +1,26 @@
+use nix::mount::MsFlags;
+use std::ffi::OsStr;
+
 pub trait MountOptionsExt {
-    fn flags(&mut self) -> &mut Self;
+    fn flags(&mut self, flags: MsFlags) -> &mut Self;
+    fn fs_type<T: AsRef<OsStr>>(&mut self, fs_type: Option<T>) -> &mut Self;
+    fn data<T: AsRef<OsStr>>(&mut self, data: Option<T>) -> &mut Self;
 }
 
 impl MountOptionsExt for crate::mount::MountOptions {
-    fn flags(&mut self) -> &mut Self {
+    fn flags(&mut self, flags: MsFlags) -> &mut Self {
+        self.inner.flags(flags);
+        self
+    }
+
+    fn fs_type<T: AsRef<OsStr>>(&mut self, fs_type: Option<T>) -> &mut Self {
+        self.inner
+            .fs_type(fs_type.map(|t| t.as_ref().to_os_string()));
+        self
+    }
+
+    fn data<T: AsRef<OsStr>>(&mut self, data: Option<T>) -> &mut Self {
+        self.inner.data(data.map(|d| d.as_ref().to_os_string()));
         self
     }
 }
