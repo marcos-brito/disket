@@ -8,6 +8,7 @@ pub(crate) mod unix;
 #[cfg(unix)]
 use unix as sys;
 
+use crate::Result;
 use std::ffi::OsStr;
 
 pub struct MountOptions {
@@ -30,8 +31,16 @@ impl MountOptions {
         self.inner.mount_point(mount_point.as_ref().to_os_string());
         self
     }
+
+    pub fn mount(&self) -> Result<()> {
+        sys::mount(&self.inner)
+    }
+}
+pub fn mount<T: AsRef<OsStr>>(device: T, mount_point: T) -> Result<()> {
+    MountOptions::new()
+        .device(device)
+        .mount_point(mount_point)
+        .mount()
 }
 
-pub fn mount(options: MountOptions) {
-    sys::mount(options.inner);
 }

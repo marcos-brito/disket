@@ -28,7 +28,7 @@ impl MountOptions {
     }
 }
 
-pub fn mount(options: MountOptions) -> Result<()> {
+pub fn mount(options: &MountOptions) -> Result<()> {
     let volume_name = PCWSTR::from_raw(options.volume_name.wide().as_ptr());
     let mount_point = PCWSTR::from_raw(options.mount_point.wide().as_ptr());
 
