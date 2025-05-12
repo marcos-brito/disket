@@ -28,6 +28,23 @@ impl MountOptions {
     }
 }
 
+pub struct UnmountOptions {
+    mount_point: OsString,
+}
+
+impl UnmountOptions {
+    pub fn new() -> Self {
+        Self {
+            mount_point: OsString::new(),
+        }
+    }
+
+    pub fn mount_point(&mut self, mount_point: OsString) -> &mut Self {
+        self.mount_point = mount_point;
+        self
+    }
+}
+
 pub fn mount(options: &MountOptions) -> Result<()> {
     let volume_name = PCWSTR::from_raw(options.volume_name.wide().as_ptr());
     let mount_point = PCWSTR::from_raw(options.mount_point.wide().as_ptr());
@@ -38,4 +55,13 @@ pub fn mount(options: &MountOptions) -> Result<()> {
 
     Ok(())
 }
+
+pub fn unmount(options: UnmountOptions) -> Result<()> {
+    let volume_name = PCWSTR::from_raw(options.mount_point.wide().as_ptr());
+
+    unsafe {
+        FileSystem::DeleteVolumeMountPointW(volume_name)?;
+    }
+
+    Ok(())
 }
