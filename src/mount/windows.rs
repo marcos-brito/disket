@@ -56,7 +56,7 @@ pub fn mount(options: &MountOptions) -> Result<()> {
     Ok(())
 }
 
-pub fn unmount(options: UnmountOptions) -> Result<()> {
+pub fn unmount(options: &UnmountOptions) -> Result<()> {
     let volume_name = PCWSTR::from_raw(options.mount_point.wide().as_ptr());
 
     unsafe {

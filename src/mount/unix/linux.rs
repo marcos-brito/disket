@@ -83,7 +83,7 @@ pub fn mount(options: &MountOptions) -> Result<()> {
     Ok(())
 }
 
-pub fn unmount(options: UnmountOptions) -> Result<()> {
+pub fn unmount(options: &UnmountOptions) -> Result<()> {
     mount::umount2(options.mount_point.as_os_str(), options.flags)?;
     Ok(())
 }

@@ -36,6 +36,27 @@ impl MountOptions {
         sys::mount(&self.inner)
     }
 }
+
+pub struct UnmountOptions {
+    pub(crate) inner: sys::UnmountOptions,
+}
+
+impl UnmountOptions {
+    pub fn new() -> Self {
+        Self {
+            inner: sys::UnmountOptions::new(),
+        }
+    }
+
+    pub fn mount_point<T: AsRef<OsStr>>(&mut self, mount_point: T) -> &mut Self {
+        self.inner.mount_point(mount_point.as_ref().to_os_string());
+        self
+    }
+
+    pub fn unmount(&self) -> Result<()> {
+        sys::unmount(&self.inner)
+    }
+}
 pub fn mount<T: AsRef<OsStr>>(device: T, mount_point: T) -> Result<()> {
     MountOptions::new()
         .device(device)
@@ -43,4 +64,6 @@ pub fn mount<T: AsRef<OsStr>>(device: T, mount_point: T) -> Result<()> {
         .mount()
 }
 
+pub fn unmount<T: AsRef<OsStr>>(mount_point: T) -> Result<()> {
+    UnmountOptions::new().mount_point(mount_point).unmount()
 }
