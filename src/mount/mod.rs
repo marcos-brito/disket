@@ -11,15 +11,22 @@ use unix as sys;
 use crate::Result;
 use std::ffi::OsStr;
 
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub struct MountOptions {
     pub(crate) inner: sys::MountOptions,
 }
 
-impl MountOptions {
-    pub fn new() -> Self {
+impl Default for MountOptions {
+    fn default() -> Self {
         Self {
             inner: sys::MountOptions::new(),
         }
+    }
+}
+
+impl MountOptions {
+    pub fn new() -> Self {
+        MountOptions::default()
     }
 
     pub fn device<T: AsRef<OsStr>>(&mut self, device: T) -> &mut Self {
@@ -37,15 +44,22 @@ impl MountOptions {
     }
 }
 
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub struct UnmountOptions {
     pub(crate) inner: sys::UnmountOptions,
 }
 
-impl UnmountOptions {
-    pub fn new() -> Self {
+impl Default for UnmountOptions {
+    fn default() -> Self {
         Self {
             inner: sys::UnmountOptions::new(),
         }
+    }
+}
+
+impl UnmountOptions {
+    pub fn new() -> Self {
+        UnmountOptions::default()
     }
 
     pub fn mount_point<T: AsRef<OsStr>>(&mut self, mount_point: T) -> &mut Self {

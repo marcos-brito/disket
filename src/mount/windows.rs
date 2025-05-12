@@ -4,6 +4,7 @@ use std::ffi::{OsStr, OsString};
 use windows::{core::PCWSTR, Win32::Storage::FileSystem};
 
 
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub struct MountOptions {
     volume_name: OsString,
     mount_point: OsString,
@@ -28,6 +29,7 @@ impl MountOptions {
     }
 }
 
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub struct UnmountOptions {
     mount_point: OsString,
 }

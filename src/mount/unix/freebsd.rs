@@ -2,6 +2,7 @@ use crate::Result;
 use nix::mount::{self, MntFlags};
 use std::ffi::OsString;
 
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub struct MountOptions {
     device: OsString,
     mount_point: OsString,
@@ -47,6 +48,7 @@ impl MountOptions {
     }
 }
 
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub struct UnmountOptions {
     mount_point: OsString,
     flags: MntFlags,
