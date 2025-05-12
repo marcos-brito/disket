@@ -1,4 +1,6 @@
-use nix::mount::MsFlags;
+use crate::mount::unix::linux;
+use crate::Result;
+use nix::mount::{MntFlags, MsFlags};
 use std::ffi::OsStr;
 
 pub trait MountOptionsExt {
@@ -23,4 +25,19 @@ impl MountOptionsExt for crate::mount::MountOptions {
         self.inner.data(data.map(|d| d.as_ref().to_os_string()));
         self
     }
+}
+
+pub trait UnmountOptionsExt {
+    fn flags(&mut self, flags: MntFlags) -> &mut Self;
+}
+
+impl UnmountOptionsExt for crate::mount::UnmountOptions {
+    fn flags(&mut self, flags: MntFlags) -> &mut Self {
+        self.inner.flags(flags);
+        self
+    }
+}
+
+pub fn umount<T: AsRef<OsStr>>(target: T) -> Result<()> {
+    linux::umount(target.as_ref())
 }

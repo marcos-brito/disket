@@ -18,6 +18,7 @@ mount = ["nix/mount", "windows/Win32_Storage_FileSystem"]
 os = []
 
 [dependencies]
+cfg-if = "1.0"
 thiserror = "2.0.12"
 
 [target.'cfg(unix)'.dependencies]
