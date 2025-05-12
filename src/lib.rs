@@ -1,4 +1,7 @@
 mod common;
+mod error;
+
+pub use error::{Error, Result};
 
 #[cfg(feature = "device")]
 pub mod device;

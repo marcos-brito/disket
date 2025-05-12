@@ -1,9 +1,7 @@
 use crate::common::windows::Wide;
+use crate::Result;
 use std::ffi::{OsStr, OsString};
-use windows::{
-    core::{Result, PCWSTR},
-    Win32::Storage::FileSystem,
-};
+use windows::{core::PCWSTR, Win32::Storage::FileSystem};
 
 
 pub struct MountOptions {
@@ -34,6 +32,10 @@ pub fn mount(options: MountOptions) -> Result<()> {
     let volume_name = PCWSTR::from_raw(options.volume_name.wide().as_ptr());
     let mount_point = PCWSTR::from_raw(options.mount_point.wide().as_ptr());
 
-    unsafe { FileSystem::SetVolumeMountPointW(volume_name, mount_point) }
+    unsafe {
+        FileSystem::SetVolumeMountPointW(volume_name, mount_point)?;
+    }
+
+    Ok(())
 }
 }
