@@ -181,6 +181,17 @@ impl UnmountOptions {
 /// Every error is returned from the underlying platform, that is `errno` on *nix systems or whatever
 /// windows bindings returns. For detailed reasoning consult its respective reference.
 ///
+/// # Examples
+///
+/// ```
+/// use disket::mount;
+///
+/// fn main() -> Result<(), Box<dyn Error>> {
+///     mount::mount("/dev/sdc1", "/mnt")?; // Mount /dev/sdc1 at /mnt
+///     Ok(())
+/// }
+/// ```
+///
 /// # References
 ///
 /// Details for each of the underlying platform calls can be found at:
@@ -221,6 +232,17 @@ pub fn mount<T: AsRef<OsStr>>(device: T, mount_point: T) -> Result<()> {
 ///
 /// Every error is returned from the underlying platform, that is `errno` on *nix systems or whatever
 /// windows bindings returns. For detailed reasoning consult its respective reference.
+///
+/// # Examples
+///
+/// ```
+/// use disket::mount;
+///
+/// fn main() -> Result<(), Box<dyn Error>> {
+///     mount::unmount("/mnt")?; // Unmount volume mounted at /mnt
+///     Ok(())
+/// }
+/// ```
 ///
 /// # References
 ///
