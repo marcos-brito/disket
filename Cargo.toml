@@ -3,11 +3,13 @@ name = "disket"
 version = "0.7.0"
 license = "MIT"
 authors = ["Marcos Brito <marcos.brito0507@gmail.com>"]
-description = ""
+description = "Cross-platform abstractions for disks/volumes management"
 repository = "https://github.com/marcos-brito/disket"
+documentation = "https://docs.rs/disket"
 readme = "README.md"
 rust-version = "1.75"
-keywords = ["device", "disk", "volume"]
+keywords = ["device", "disk", "volume", "mount"]
+categories = ["Filesystem"]
 edition = "2021"
 
 [features]
