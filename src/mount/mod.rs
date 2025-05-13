@@ -38,6 +38,8 @@ use std::ffi::OsStr;
 ///         .device("/dev/sda2")
 ///         .mount_point("/mnt")
 ///         .mount()?;
+///
+///     Ok(())
 /// }
 /// ```
 /// Mount with platform-specific options:
@@ -51,6 +53,8 @@ use std::ffi::OsStr;
 ///         .mount_point("/mnt")
 ///         .fstype("ext4")
 ///         .mount()?;
+///
+///     Ok(())
 /// }
 /// ```
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -107,6 +111,8 @@ impl MountOptions {
 ///     UnmountOptions::new()
 ///         .mount_point("/mnt")
 ///         .unmount()?;
+///
+///     Ok(())
 /// }
 /// ```
 ///
@@ -120,6 +126,8 @@ impl MountOptions {
 ///         .mount_point("/mnt")
 ///         .flags(MntFlags::MNT_FORCE | MntFlags::MNT_NOBLOCK)
 ///         .unmount()?;
+///
+///     Ok(())
 /// }
 /// ```
 #[derive(Clone, Debug, PartialEq, Eq)]
