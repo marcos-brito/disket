@@ -1,6 +1,6 @@
 use crate::mount::unix::linux;
 use crate::Result;
-use nix::mount::{MntFlags, MsFlags};
+pub use nix::mount::{MntFlags, MsFlags};
 use std::ffi::OsStr;
 
 pub trait MountOptionsExt {

@@ -1,4 +1,4 @@
-use nix::mount::MntFlags;
+pub use nix::mount::MntFlags;
 use std::ffi::OsStr;
 
 pub trait MountOptionsExt {
