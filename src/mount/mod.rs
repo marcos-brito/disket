@@ -1,7 +1,7 @@
 //! Mount and unmount operations.
 //!
 //! Cross-platform abstraction for mouting and unmouting file systems. Extra functionality
-//! for specific platforms can be found at `disket::os::mount`.
+//! for specific platforms can be found at [`crate::os`].
 
 #[cfg(windows)]
 pub(crate) mod windows;
@@ -71,20 +71,26 @@ impl Default for MountOptions {
 }
 
 impl MountOptions {
+    /// Creates a new set of options with default values.
     pub fn new() -> Self {
         MountOptions::default()
     }
 
+    /// Sets the volume identifier to be mounted.
     pub fn device<T: AsRef<OsStr>>(&mut self, device: T) -> &mut Self {
         self.inner.device(device.as_ref().to_os_string());
         self
     }
 
+    /// Sets the mount point of the volume to be mounted.
     pub fn mount_point<T: AsRef<OsStr>>(&mut self, mount_point: T) -> &mut Self {
         self.inner.mount_point(mount_point.as_ref().to_os_string());
         self
     }
 
+    /// Mounts a volume with the options specified by `self`.
+    ///
+    /// See [`mount`] for details.
     pub fn mount(&self) -> Result<()> {
         sys::mount(&self.inner)
     }
@@ -144,15 +150,20 @@ impl Default for UnmountOptions {
 }
 
 impl UnmountOptions {
+    /// Creates a new set of options with default values.
     pub fn new() -> Self {
         UnmountOptions::default()
     }
 
+    /// Sets the mount point of the volume to be unmounted.
     pub fn mount_point<T: AsRef<OsStr>>(&mut self, mount_point: T) -> &mut Self {
         self.inner.mount_point(mount_point.as_ref().to_os_string());
         self
     }
 
+    /// Unmounts a volume with the options specified by `self`
+    ///
+    /// See [`unmount`] for details.
     pub fn unmount(&self) -> Result<()> {
         sys::unmount(&self.inner)
     }
