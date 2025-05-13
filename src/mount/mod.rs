@@ -23,7 +23,7 @@ use std::ffi::OsStr;
 /// You should chain calls to set every option and then call `mount`. Doing
 /// otherwise will probably return an error.
 ///
-/// Only `device` and `mount_point` are available in all platforms. For platform-specific
+/// Only `volume` and `mount_point` are available in all platforms. For platform-specific
 /// options use an extension trait such as `disket::os::mount::linux::MountOptionsExt`.
 ///
 /// # Examples
@@ -35,7 +35,7 @@ use std::ffi::OsStr;
 ///
 /// fn main() -> Result<(), Box<dyn Error>> {
 ///     MountOptions::new()
-///         .device("/dev/sda2")
+///         .volume("/dev/sda2")
 ///         .mount_point("/mnt")
 ///         .mount()?;
 ///
@@ -49,7 +49,7 @@ use std::ffi::OsStr;
 ///
 /// fn main() -> Result<(), Box<dyn Error>> {
 ///     MountOptions::new()
-///         .device("/dev/sda2")
+///         .volume("/dev/sda2")
 ///         .mount_point("/mnt")
 ///         .fstype("ext4")
 ///         .mount()?;
@@ -77,8 +77,8 @@ impl MountOptions {
     }
 
     /// Sets the volume identifier to be mounted.
-    pub fn device<T: AsRef<OsStr>>(&mut self, device: T) -> &mut Self {
-        self.inner.device(device.as_ref().to_os_string());
+    pub fn volume<T: AsRef<OsStr>>(&mut self, volume: T) -> &mut Self {
+        self.inner.volume(volume.as_ref().to_os_string());
         self
     }
 
@@ -172,7 +172,7 @@ impl UnmountOptions {
 /// Mounts the file system pointed by `volume` at `mount_point`.
 ///
 /// This function is interchangeable with manually calling `mount` on [`MountOptions`]
-/// with `device` and `mount_point` set.
+/// with `volume` and `mount_point` set.
 ///
 /// # Platform-specific behaviour
 ///
@@ -216,9 +216,9 @@ impl UnmountOptions {
 /// [FreeBSD]: https://man.freebsd.org/cgi/man.cgi?nmount(2)
 /// [macOS/IOS]: https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man2/mount.2.html
 /// [Windows]: https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-setvolumemountpointw
-pub fn mount<T: AsRef<OsStr>>(device: T, mount_point: T) -> Result<()> {
+pub fn mount<T: AsRef<OsStr>>(volume: T, mount_point: T) -> Result<()> {
     MountOptions::new()
-        .device(device)
+        .volume(volume)
         .mount_point(mount_point)
         .mount()
 }

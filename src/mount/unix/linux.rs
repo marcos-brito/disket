@@ -4,7 +4,7 @@ use std::ffi::{OsStr, OsString};
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct MountOptions {
-    device: OsString,
+    volume: OsString,
     mount_point: OsString,
     flags: MsFlags,
     fs_type: Option<OsString>,
@@ -14,7 +14,7 @@ pub struct MountOptions {
 impl MountOptions {
     pub fn new() -> Self {
         Self {
-            device: OsString::new(),
+            volume: OsString::new(),
             mount_point: OsString::new(),
             flags: MsFlags::empty(),
             fs_type: None,
@@ -22,8 +22,8 @@ impl MountOptions {
         }
     }
 
-    pub fn device(&mut self, device: OsString) -> &mut Self {
-        self.device = device;
+    pub fn volume(&mut self, device: OsString) -> &mut Self {
+        self.volume = device;
         self
     }
 
@@ -75,7 +75,7 @@ impl UnmountOptions {
 
 pub fn mount(options: &MountOptions) -> Result<()> {
     mount::mount(
-        Some(options.device.as_os_str()),
+        Some(options.volume.as_os_str()),
         options.mount_point.as_os_str(),
         options.fs_type.as_ref().map(|t| t.as_os_str()),
         options.flags,
