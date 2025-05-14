@@ -12,29 +12,26 @@ env:
 
 jobs:
   build:
-      name: Build for ${{ matrix.platform.target }}
-      runs-on: $ {{ matrix.platform.os }}
+      name: Build for ${{ matrix.target }}
+      runs-on: ubuntu-latest
       strategy:
         matrix:
-          platform:
-            - os: windows-latest
-              target: x86_64-pc-windows-msvc
-              cross: false
-            - os: macos-latest
-              target: x86_64-apple-darwin
-              cross: false
-            - os: ubuntu-latest
-              target: x86_64-unknown-linux-gnu
-              cross: false
-            - os: ubuntu-latest
-              target: x86_64-unknown-freebsd
-              cross: true
-            - os: ubuntu-latest
-              target: aarch64-linux-android              
-              cross: true
-            - os: macos-latest
-              target: aarch64-apple-ios
-              cross: true
+          # Running tests with cross is unreliable on some platforms. If
+          # you get any weird errors change `test` to false.
+          include:
+            - target: x86_64-pc-windows-gnu
+              test: true
+            - target: x86_64-apple-darwin
+              test: true
+            - target: x86_64-unknown-linux-gnu
+              test: true
+            - target: x86_64-unknown-freebsd
+              test: true
+            - target: aarch64-linux-android              
+              test: true
+            - target: aarch64-apple-ios
+              test: true
+
       steps:
         - uses: actions/checkout@v4
         
@@ -42,23 +39,16 @@ jobs:
           run: rustup target add ${{ matrix.target }}
 
         - name: Install cross
-          run: cargo install cross --git https://github.com/cross-rs/cross --branch main
+          uses: taiki-e/install-action@v2
+          with:
+            tool: cross@0.2.5
 
-        - name: Test with cargo
-          run: cross test --all-features --all-targets --target ${{ matrix.platform.target }}
-          if: ${{ !matrix.platform.cross }}
+        - name: Test
+          run: cross test --all-features --all-targets --target ${{ matrix.target }}
+          if: ${{ matrix.test }}
 
-        - name: Test with cross
-          run: cargo test --all-features --all-targets --target ${{ matrix.platform.target }}
-          if: ${{ !matrix.platform.cross }}
-
-        - name: Build with cargo
-          run: cross build --release --all-features --all-targets --target ${{ matrix.platform.target }}
-          if: ${{ !matrix.platform.cross }}
-
-        - name: Build with cross
-          run: cargo build --release --all-features --all-targets --target ${{ matrix.platform.target }}
-          if: ${{ matrix.platform.cross }}
+        - name: Build
+          run: cross build --release --all-features --all-targets --target ${{ matrix.target }}
 
   docs:
       name: Check docs for ${{ matrix.target }}
