@@ -1,10 +1,14 @@
+#![allow(dead_code)]
+#![allow(unused)]
+
 pub struct Event {
     kind: EventKind,
 }
 
 pub enum EventKind {
-    Some,
-    Other,
+    Arrival,
+    Change,
+    Removal,
 }
 
 pub trait EventHandler {

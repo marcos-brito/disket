@@ -1,18 +1,9 @@
-#[cfg(windows)]
-mod windows;
-#[cfg(windows)]
-use windows as sys;
-
-#[cfg(unix)]
-mod unix;
-#[cfg(unix)]
-use unix as sys;
+#![allow(dead_code)]
+#![allow(unused)]
 
 use std::ffi::OsStr;
 
-pub struct Device {
-    inner: sys::DeviceInner,
-}
+pub struct Device {}
 
 impl Device {
     pub fn name(&self) -> &OsStr {
@@ -20,7 +11,7 @@ impl Device {
     }
 
     pub fn label(&self) -> &OsStr {
-        self.inner.label()
+        todo!();
     }
 
     pub fn mount_point(&self) -> &OsStr {
