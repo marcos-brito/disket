@@ -2,8 +2,8 @@
 
 [![crates.io](https://img.shields.io/crates/v/disket.svg)](https://crates.io/crates/disket)
 [![docs.rs](https://img.shields.io/badge/docs.rs-disket-blue)](https://docs.rs/disket)
+[![build](https://img.shields.io/github/actions/workflow/status/marcos-brito/disket/check.yaml?branch=main)](https://github.com/marcos-brito/disket/actions?query=branch:main)
 [![license](https://img.shields.io/badge/license-MIT-blue)](https://github.com/marcos-brito/disket/blob/main/LICENSE)
-[![build](https://github.com/marcos-brito/disket/actions/workflows/check.yml/badge.svg?branch=main)](https://github.com/marcos-brito/disket/actions?query=branch:main)
 
 `disket` is a Rust cross-platform library for managing disks and volumes. It provides
 high-level APIs for mount/unmounting, fetching information and watching arrival/removal of devices.
