@@ -1,8 +1,7 @@
 use crate::common::windows::Wide;
 use crate::Result;
-use std::ffi::{OsStr, OsString};
+use std::ffi::OsString;
 use windows::{core::PCWSTR, Win32::Storage::FileSystem};
-
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct MountOptions {
