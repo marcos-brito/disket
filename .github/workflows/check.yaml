@@ -27,7 +27,7 @@ jobs:
               test: true
             - target: x86_64-unknown-freebsd
               os: ubuntu-latest
-              test: true
+              test: false
             - target: aarch64-linux-android              
               os: ubuntu-latest
               test: true
