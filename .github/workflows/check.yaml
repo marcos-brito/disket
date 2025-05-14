@@ -13,19 +13,23 @@ env:
 jobs:
   build:
       name: Build for ${{ matrix.target }}
-      runs-on: ${{ matrix.os || "ubuntu-latest" }}
+      runs-on: ${{ matrix.os }}
       strategy:
         matrix:
           # Running tests with cross is unreliable on some platforms. If
           # you get any weird errors change `test` to false.
           include:
-            - target: x86_64-pc-windows-gnu
+            - target: x86_64-pc-windows-msvc
+              os: windows-latest
               test: true
             - target: x86_64-unknown-linux-gnu
+              os: ubuntu-latest
               test: true
             - target: x86_64-unknown-freebsd
+              os: ubuntu-latest
               test: true
             - target: aarch64-linux-android              
+              os: ubuntu-latest
               test: true
             - target: aarch64-apple-ios
               os: macos-latest
