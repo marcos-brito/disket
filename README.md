@@ -14,7 +14,7 @@ To start using `disket`, add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-disket = "1"
+disket = "0.1.0"
 ```
 
 This will add the set of `default` features. Check the [documentation](https://docs.rs/disket) for other

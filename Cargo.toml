@@ -1,6 +1,6 @@
 [package]
 name = "disket"
-version = "0.9.0"
+version = "0.1.0"
 license = "MIT"
 authors = ["Marcos Brito <marcos.brito0507@gmail.com>"]
 description = "Cross-platform abstractions for disks/volumes management"
