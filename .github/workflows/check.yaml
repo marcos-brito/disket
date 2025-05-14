@@ -48,3 +48,21 @@ jobs:
         
         - name: Build library
           run: cargo build --release --all-features --all-targets --target ${{ matrix.target }}
+
+  docs:
+      name: Check docs for ${{ matrix.target }}
+      runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          target:
+            - x86_64-unknown-linux-gnu
+            - x86_64-unknown-freebsd
+            - x86_64-apple-darwin
+            - x86_64-pc-windows-msvc
+            - aarch64-linux-android
+            - aarch64-apple-ios
+      steps:
+        - uses: actions/checkout@v4
+
+        - name: Check docs
+          run : cargo doc --all-features --no-deps --target ${{ matrix.target }}
